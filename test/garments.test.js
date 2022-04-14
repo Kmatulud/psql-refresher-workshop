@@ -22,7 +22,7 @@ describe('As part of the sql refresh workshop', () => {
 	it('you should create a garment table in the database', async () => {
 
 		// use db.one
-
+		const result = await db.one(`select count(*) from garment;`);
 		// no changes below this line in this function
 		assert.ok(result.count);
 	});
@@ -30,7 +30,7 @@ describe('As part of the sql refresh workshop', () => {
 	it('there should be 11 garments in the garment table - added using the supplied script', async () => {
 
 		// use db.one as 1 result us expected
-
+		const result = await db.one(`select count(*) from garment;`);
 		// no changes below this line in this function
 
 		assert.equal(30, result.count);
@@ -38,21 +38,21 @@ describe('As part of the sql refresh workshop', () => {
 
 	it('you should be able to find all the Summer garments', async () => {
 		// add some code below
-
+		const result = await db.one(`select count(*) from garment where season =$1`, "Summer");
 		// no changes below this line in this function
 		assert.equal(12, result.count);
 	});
 
 	it('you should be able to find all the Winter garments', async () => {
 		// add some code below
-
+		const result = await db.one(`select count(*) from garment where season =$1`, "Winter");
 		// no changes below this line in this function
 		assert.equal(5, result.count);
 	});
 
 	it('you should be able to find all the Winter Male garments', async () => {
 		// change the code statement below
-
+		const result = await db.one(`select count(*) from garment where season =$1 and gender=$2`, ["Winter","Male"]);
 		// no changes below this line in this function
 		assert.equal(3, result.count);
 	});
@@ -60,7 +60,7 @@ describe('As part of the sql refresh workshop', () => {
 	it('you should be able to change a given Male garment to a Unisex garment', async () => {
 
 		// use db.one with an update sql statement
-
+		await db.one(`update garments set gender=$1 where gender=$2 and description=$3`, ["Unisex", "Male", "Red hooded jacket"])
 		// write your code above this line
 		
 		const gender_sql = 'select gender from garment where description = $1'
@@ -72,7 +72,7 @@ describe('As part of the sql refresh workshop', () => {
 	it('you should be able to add 2 Male & 3 Female garments', async () => {
 
 		// use db.none - change code below here...
-
+		await db.none(`insert into garment(description, img, season, gender,price) values(['Lime Vest', 'mens-128x128-455128.png', 'Summer', 'Male', '69.99'], ['Blue Blazer', 'womans-128x128-455141.png', 'All Seasons', 'Male', '399.99'], ['Blue Jeans', 'womans-128x128-455142.png', 'All Seasons', 'Female', '499.99'],['Red Leggings', 'womans-128x128-455143.png', 'All Seasons', 'Female', '299.99'], ['Lime Dress(Short)', 'womans-128x128-455146.png', 'Summer', 'Female', '599.99'])`);
 
 		// write your code above this line
 
@@ -88,7 +88,7 @@ describe('As part of the sql refresh workshop', () => {
 	it('you should be group garments by gender and count them', async () => {
 
 		// and below this line for this function will
-
+		const garmentsGrouped = await db.many(`select count(*), gender from garment group by gender`);
 		// write your code above this line
 
 		const expectedResult = [
@@ -111,7 +111,7 @@ describe('As part of the sql refresh workshop', () => {
 	it('you should be able to remove all the Unisex garments', async () => {
 
 		// and below this line for this function will
-
+		await db.none(`delete from garment where gender=$1`, "Unisex");
 		// write your code above this line
 
 		const gender_count_sql = 'select count(*) from garment where gender = $1'
