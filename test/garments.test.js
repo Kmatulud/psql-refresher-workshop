@@ -27,7 +27,7 @@ describe('As part of the sql refresh workshop', () => {
 		assert.ok(result.count);
 	});
 
-	it('there should be 11 garments in the garment table - added using the supplied script', async () => {
+	it('there should be 30 garments in the garment table - added using the supplied script', async () => {
 
 		// use db.one as 1 result us expected
 		const result = await db.one(`select count(*) from garment;`);
@@ -60,7 +60,7 @@ describe('As part of the sql refresh workshop', () => {
 	it('you should be able to change a given Male garment to a Unisex garment', async () => {
 
 		// use db.one with an update sql statement
-		await db.one(`update garments set gender=$1 where gender=$2 and description=$3`, ["Unisex", "Male", "Red hooded jacket"])
+		await db.one(`update garment set gender=$1 where gender=$2 and description=$3 returning $4`, ["Unisex", "Male", "Red hooded jacket", "success"])
 		// write your code above this line
 		
 		const gender_sql = 'select gender from garment where description = $1'
@@ -88,7 +88,7 @@ describe('As part of the sql refresh workshop', () => {
 	it('you should be group garments by gender and count them', async () => {
 
 		// and below this line for this function will
-		const garmentsGrouped = await db.many(`select count(*), gender from garment group by gender`);
+		const garmentsGrouped = await db.many(`select count(*), gender from garment group by gender order by gender asc`);
 		// write your code above this line
 
 		const expectedResult = [
