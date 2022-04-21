@@ -1,11 +1,16 @@
 language: node_js
+
 services:
   - postgresql
+
 env:
   - DATABASE_URL=postgres://gary:gar123@localhost:5432/garment_app
+
 before_script:
   - npm install
+  - psql -c "CREATE USER gary WITH PASSWORD 'gar123';" -U postgres
   - psql -c 'create database garment_app' -U postgres
   - psql -U postgres -d garment_app -a -f ./sql/garment.sql
+
 node_js:
   - 16.14.2
