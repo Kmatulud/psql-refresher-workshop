@@ -1,1 +1,1 @@
-[![Build Status](https://app.travis-ci.com/Kmatulud/psql-refresher-workshop.svg?branch=master)](https://app.travis-ci.com/Kmatulud/psql-refresher-workshop)
+[![Build Status](https://app.travis-ci.com/Kmatulud/psql-refresher-workshop.svg?branch=main)](https://app.travis-ci.com/Kmatulud/psql-refresher-workshop)
