@@ -108,7 +108,7 @@ describe('As part of the sql refresh workshop', () => {
 			    gender: 'Unisex'
 			  }
 			]
-		assert.deepStrictEqual(expectedResult, garmentsGrouped)
+		assert.deepEqual(expectedResult, garmentsGrouped)
 	});
 
 	it('you should be able to remove all the Unisex garments', async () => {
